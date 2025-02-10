@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: linear-gradient(to right, #c1b379, #4ab9be);
+  color: white;
+}
+
+.navbar {
+  box-shadow: 1px 4px 8px rgba(15, 15, 15, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+#cart-count {
+  font-weight: bold;
+  color: white;
+  background-color: rgb(206, 12, 112);
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+.card {
+  padding: 10%;
+}
+
+.btn-add {
+  background-color: #be0909;
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #cb139d;
+}

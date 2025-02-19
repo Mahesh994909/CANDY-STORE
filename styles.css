@@ -3,7 +3,7 @@ body {
 }
 
 header {
-  background: linear-gradient(to right, #c1b379, #4ab9be);
+  background: linear-gradient(to right, #dac26f, #1298db);
   color: white;
 }
 
@@ -33,4 +33,13 @@ header {
 
 .btn-add:hover {
   background-color: #cb139d;
+}
+
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }

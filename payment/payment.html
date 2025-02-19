@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            padding: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .goback {
+            text-align: center;
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            background-color: transparent;
+            border: 1px solid #007bff;
+            padding: 10px 20px;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .goback:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .payment-methods {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .payment-methods h4 {
+            margin-bottom: 20px;
+        }
+
+        .payment-methods .form-check {
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="navbar-brand" href="1">Candy Store</h1>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Payment Details</h2>
+
+    
+        <div class="payment-methods">
+            <form id="payment-form">
+                <div class="mb-3">
+                    <label class="form-label">Cardholder Name</label>
+                    <input type="text" class="form-control" id="cardholder-name" placeholder="John Doe" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Expiration Date</label>
+                        <input type="text" class="form-control" id="expiry-date" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary w-100">Complete Payment</button>
+                </div>
+            </form>
+        </div>
+
+       
+        <form action="">
+            <button class="goback"><a href="../main.html" style="color: inherit; text-decoration: none;">Cancel Payment</a></button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("payment-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let cardholderName = document.getElementById("cardholder-name").value.trim();
+            let cardNumber = document.getElementById("card-number").value.replace(/\s+/g, '');
+            let expiryDate = document.getElementById("expiry-date").value.trim();
+            let cvv = document.getElementById("cvv").value.trim();
+
+            if (!cardholderName || !cardNumber || !expiryDate || !cvv) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+        
+            setTimeout(() => {
+                alert("Payment successful! Thank you for shopping with us.");
+                window.location.href = "../main.html";
+            }, 1500);
+        });
+
+       
+        document.getElementById("card-number").addEventListener("input", function(event) {
+            let value = event.target.value.replace(/\D/g, '').substring(0, 16);
+            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+            event.target.value = formattedValue;
+        });
+
+        
+        document.getElementById("expiry-date").addEventListener("input", function(event) {
+            let value = event.target.value.replace(/\D/g, '').substring(0, 4);
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2);
+            }
+            event.target.value = value;
+        });
+    </script>
+</body>
+</html>

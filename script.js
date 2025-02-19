@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const candyList = document.getElementById("candy-list");
-  const cartItems = document.getElementById("cart-items");
   const cartCount = document.getElementById("cart-count");
-  const searchBar = document.getElementById("searchBar");
+  const searchBar = document.getElementById("searchBar"); // ✅ Added search bar reference
 
-  let cart = [];
-  
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
   const candies = [
     { id: 1, name: "Chocolate Bar", price: 150.0, image: "images/img1.jpg" },
     { id: 2, name: "Gummy Bears", price: 30.0, image: "images/img2.webp" },
@@ -29,79 +28,77 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 20, name: "Nougat", price: 30.8, image: "images/img20.webp" }
   ];
 
-  // Function to display candies
   function displayCandies(candiesToDisplay) {
     candyList.innerHTML = "";
     candiesToDisplay.forEach((candy) => {
       const candyCard = document.createElement("div");
       candyCard.classList.add("col-md-3", "mb-4");
       candyCard.innerHTML = `
-        <div class="card">
+        <div class="card candy-card" data-id="${candy.id}">
           <img src="${candy.image}" class="card-img-top" alt="${candy.name}" style="width: 100%; height: 200px; object-fit: cover;">
           <div class="card-body text-center">
             <h5 class="card-title">${candy.name}</h5>
-            <p class="card-text">$${candy.price.toFixed(2)}</p>
-            <button class="btn btn-primary" onclick="addToCart(${candy.id})">Add to Cart</button>
+            <p class="card-text">₹${candy.price.toFixed(2)}</p>
+            <div id="cart-controls-${candy.id}">
+              ${cart[candy.id] ? quantityControls(candy.id) : `<button class="btn btn-primary" onclick="addToCart(${candy.id})">Add to Cart</button>`}
+            </div>
           </div>
         </div>
       `;
+
       candyList.appendChild(candyCard);
     });
   }
 
-  // Function to filter candies based on search input
-  searchBar.addEventListener("input", function () {
-    const searchTerm = searchBar.value.toLowerCase();
-    const filteredCandies = candies.filter((candy) => candy.name.toLowerCase().includes(searchTerm));
-    displayCandies(filteredCandies); // Display filtered candies
-  });
-
-  // Function to add candy to cart
-  window.addToCart = function (id) {
-    const candy = candies.find((item) => item.id === id);
-    if (candy) {
-      cart.push(candy);
-      updateCart();
-    }
-  };
-
-  // Function to update cart display
-  function updateCart() {
-    cartItems.innerHTML = "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-      total += item.price;
-      const listItem = document.createElement("li");
-      listItem.classList.add("list-group-item");
-      listItem.innerHTML = `
-        ${item.name} - $${item.price.toFixed(2)}
-        <button class="btn btn-sm btn-danger float-end" onclick="removeFromCart(${index})">Remove</button>
-      `;
-      cartItems.appendChild(listItem);
-    });
-
-    cartCount.textContent = cart.length;
+  function quantityControls(id) {
+    return `
+      <div class="d-flex justify-content-center align-items-center">
+        <button class="btn btn-sm btn-danger me-2" onclick="decreaseQuantity(${id})">-</button>
+        <span id="quantity-${id}" class="mx-2">${cart[id]}</span>
+        <button class="btn btn-sm btn-success ms-2" onclick="increaseQuantity(${id})">+</button>
+      </div>
+    `;
   }
 
-  // Function to remove item from cart
-  window.removeFromCart = function (index) {
-    cart.splice(index, 1);
+  window.addToCart = function (id) {
+    cart[id] = (cart[id] || 0) + 1;
+    localStorage.setItem("cart", JSON.stringify(cart));
     updateCart();
+    displayCandies(candies);
   };
 
-  // Function to checkout
-  window.checkout = function () {
-    if (cart.length === 0) {
-      alert("Your cart is empty!");
+  window.increaseQuantity = function (id) {
+    cart[id] = (cart[id] || 0) + 1; // Increment the quantity
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+    displayCandies(candies);
+  };
+
+  window.decreaseQuantity = function (id) {
+    if (cart[id] > 1) {
+      cart[id]--;
     } else {
-      alert("Thank you for your purchase!");
-      cart = [];
-      updateCart();
+      delete cart[id];
     }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+    displayCandies(candies);
   };
 
-  // Display candies on page load
-  displayCandies(candies);
-});
+  function updateCart() {
+    const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
+    cartCount.textContent = totalItems;
+  }
 
+  
+  searchBar.addEventListener("input", function () {
+    const searchText = searchBar.value.toLowerCase().trim(); // Remove whitespace & convert to lowercase
+    const filteredCandies = candies.filter(candy => 
+      candy.name.toLowerCase().includes(searchText)
+    );
+    displayCandies(filteredCandies);
+  });
+
+  displayCandies(candies);
+  updateCart();
+});

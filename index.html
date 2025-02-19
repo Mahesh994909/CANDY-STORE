@@ -3,97 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Online Candy Store</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <title>Online Candy Store - Sign In</title>
+    <script type="module" src="./auth1.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 400px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .Signin {
+        border: 1px solid black;
+        width: 100%;
+        padding: 20px;
+        border-radius: 10px;
+        background: white;
+        box-sizing: border-box;
+      }
+
+      .Signup {
+        border: 1px solid black;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        background: white;
+      }
+
+      h5 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      input {
+        width: 90%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+
+      input:focus {
+        border-color: #101111;
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning sticky-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Candy Store</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="#cart">Cart <span id="cart-count">0</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" id="login-btn" data-bs-toggle="modal" data-bs-target="#authModal">Login</a>
-            </li>
-            <li class="nav-item">
-              <span class="navbar-text text-dark" id="user-welcome"></span>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-danger btn-sm d-none" id="logout-btn">Logout</button>
-            </li>
-          </ul>
-        </div>
+    <div class="main">
+      <div class="Signin">
+        <form id="Usersignin">
+          <h5>CANDY STORE</h5>
+          <input type="email" id="email2" placeholder="Enter email" required />
+          <br /><br />
+          <input
+            type="password"
+            id="password2"
+            placeholder="Enter password"
+            required
+          />
+          <br /><br />
+          <button type="submit">Sign In</button>
+          <br /><br />
+          <a href="./main.html" class="guest-btn">Guest Login</a>
+        </form>
       </div>
-    </nav>
 
-    <header class="text-center p-5 bg-warning">
-      <h1>Welcome to the Online Candy Store!</h1>
-      <p>Find your favorite sweets and enjoy a delicious experience.</p>
-      <input
-        type="text"
-        id="searchBar"
-        class="form-control w-50 mx-auto"
-        placeholder="Search for candies..."
-      />
-    </header>
-
-    <section id="shop" class="container my-5">
-      <h2 class="text-center mb-4">Browse Candies</h2>
-      <div class="row" id="candy-list"></div>
-    </section>
-
-    <section id="cart" class="container my-5">
-      <h2 class="text-center mb-4">Shopping Cart</h2>
-      <ul id="cart-items" class="list-group"></ul>
-      <button class="btn btn-success mt-3" onclick="checkout()">Checkout</button>
-    </section>
-
-    <!-- Authentication Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="authModalLabel">Login / Sign Up</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="signup-form">
-              <h5>Sign Up</h5>
-              <input type="text" id="signup-username" class="form-control my-2" placeholder="Username" required />
-              <input type="password" id="signup-password" class="form-control my-2" placeholder="Password" required />
-              <button type="submit" class="btn btn-primary">Sign Up</button>
-            </form>
-
-            <hr />
-
-            <form id="login-form">
-              <h5>Login</h5>
-              <input type="text" id="login-username" class="form-control my-2" placeholder="Username" required />
-              <input type="password" id="login-password" class="form-control my-2" placeholder="Password" required />
-              <button type="submit" class="btn btn-success">Login</button>
-            </form>
-          </div>
-        </div>
+      <div class="Signup">
+        <p>Don't have an account? <a href="./signup.html">Sign up</a></p>
       </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>

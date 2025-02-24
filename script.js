@@ -11,6 +11,21 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 3, name: "Lollipops", price: 15.0, image: "images/img3.jpg" },
     { id: 4, name: "Candy Canes", price: 40.0, image: "images/img4.webp" },
     { id: 5, name: "Jelly Beans", price: 35.0, image: "images/img5.jpg" },
+    { id: 6, name: "Marshmallows", price: 28.0, image: "images/img6.jpg" },
+    { id: 7, name: "Caramel Chews", price: 22.0, image: "images/img7.jpg" },
+    { id: 8, name: "Licorice", price: 27.0, image: "images/img8.jpg" },
+    { id: 9, name: "Fruit Gummies", price: 30.0, image: "images/img9.webp" },
+    { id: 10, name: "Mint Candy", price: 100.0, image: "images/img10.jpg" },
+    { id: 11, name: "Toffee", price: 29.0, image: "images/img11.jpg" },
+    { id: 12, name: "Peanut Brittle", price: 60.0, image: "images/img12.jpg" },
+    { id: 13, name: "Bubble Gum", price: 15.0, image: "images/img13.jpg" },
+    { id: 14, name: "Rock Candy", price: 25.3, image: "images/img14.jpg" },
+    { id: 15, name: "Sour Belts", price: 30.1, image: "images/img15.jpg" },
+    { id: 16, name: "Chocolate Truffles", price: 50.0, image: "images/img16.jpg" },
+    { id: 17, name: "Cotton Candy", price: 40.0, image: "images/img17.webp" },
+    { id: 18, name: "Hard Candy", price: 21.5, image: "images/img18.png" },
+    { id: 19, name: "Caramel Popcorn", price: 40.5, image: "images/img19.webp" },
+    { id: 20, name: "Nougat", price: 30.8, image: "images/img20.webp" },
   ];
 
   function displayCandies(candiesToDisplay) {
